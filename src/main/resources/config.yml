@@ -1,0 +1,35 @@
+answers:
+  2: "Puedes llegar a Survival saliendo del spawn por cualquiera de las cuatro puertas."
+  3: "Puedes encontrar cómo se protegen los terrenos en \"/warp info\""
+  4: "Puedes vender minerales en la tienda. También puedes votar por el servidor usando /vote."
+  5: "Puedes vender minerales en la tienda (/warp tienda)"
+  6: "La tienda la puedes encontrar en /warp tienda, o al noreste del spawn."
+  7: "Un chunk es una porción de terreno de 16x16 bloques."
+  9: "Puedes eliminar un Home utilizando \"/delhome <nombre>\""
+  10: "Puedes establecer un Home utilizando \"/home\". Tiene un costo de $1500."
+
+questions:
+  "como (protejo|bloqueo) mi casa\\?*": 3
+  "como (voy|llego) (a|al) survival\\?*": 2
+  "como (construyo|rompo)\\?*": 2
+  "como prote(g|j)o\\?*": 3
+  "como (claimeo|hago claim)\\?*": 3
+  "(como )?(prote(g|j)(o|er))( mi)? (terreno|casa|chunk|fac((t|c)ion)?)\\?*": 3
+  "(como|donde) (gano|consigo|junto) (dinero|plata|dallars|money|\\$*)\\?*": 4
+  "(como|que|donde) ?vendo\\?*": 3
+  "donde esta (ubicada )?la tienda\\?*": 6
+  "donde (ubico|encuentro) la tienda\\?*": 6
+  "como (hago|coloco|establezco|seteo|set)( un)? (home|sethome)\\?*": 10
+  "como (borro|elimino|saco) un (sethome|home)\\?*": 9
+  "que es un chunk\\?*": 7
+
+listen-commands:
+  helpop:
+    cancel: false
+    tell-staff: true
+    args-offset: 0
+
+  msg:
+    cancel: false
+    tell-staff: true
+    args-offset: 1

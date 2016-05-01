@@ -1,0 +1,9 @@
+name: "AutoAnswer"
+version: "1.0.0-SNAPSHOT"
+author: "makzk"
+main: "com.makzk.spigot.autoanswer.AutoAnswer"
+
+permissions:
+  autoanswer.listen:
+    default: op
+    description: "Will receive messages about AutoAnswer in situations like answering to a command"
