@@ -1,3 +1,17 @@
+# Broadcasts answers to questions from chat
+broadcast-chat: true
+
+messages:
+  tell-staff-format: "AutoAnswer -> {player}: {answer}"
+  broadcast-format: "AutoAnswer -> {player}: {answer}"
+  answer-format: "AutoAnswer: {answer}"
+
+listen-commands:
+  helpop:
+    cancel: false
+    tell-staff: true
+    args-offset: 0
+
 answers:
   2: "Puedes llegar a Survival saliendo del spawn por cualquiera de las cuatro puertas."
   3: "Puedes encontrar cómo se protegen los terrenos en \"/warp info\""
@@ -22,14 +36,3 @@ questions:
   "como (hago|coloco|establezco|seteo|set)( un)? (home|sethome)\\?*": 10
   "como (borro|elimino|saco) un (sethome|home)\\?*": 9
   "que es un chunk\\?*": 7
-
-listen-commands:
-  helpop:
-    cancel: false
-    tell-staff: true
-    args-offset: 0
-
-  msg:
-    cancel: false
-    tell-staff: true
-    args-offset: 1

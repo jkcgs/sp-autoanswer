@@ -1,8 +1,6 @@
 package com.makzk.spigot.autoanswer;
 
-import org.bukkit.command.Command;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -97,9 +95,7 @@ public class AnswerConfig {
      * @return A possible answer, <code>null</code> if no answer was found.
      */
     public String getAnswer(String question) {
-        logger.info("test msg: " + question);
         for (Map.Entry<String, String> entry : questions.entrySet()) {
-            logger.info("trying " + entry.getKey());
             if(question.matches(entry.getKey())) {
                 if(!answers.containsKey(entry.getValue())) {
                     logger.warning("Question matches, but we don't have answer ID " + entry.getValue());

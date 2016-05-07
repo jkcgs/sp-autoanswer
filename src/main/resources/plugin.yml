@@ -4,6 +4,19 @@ author: "makzk"
 main: "com.makzk.spigot.autoanswer.AutoAnswer"
 
 permissions:
-  autoanswer.listen:
+  autoanswer.inform:
     default: op
     description: "Will receive messages about AutoAnswer in situations like answering to a command"
+  autoanswer.listen:
+    default: true
+    description: "Will listen to questions (messages)"
+  autoanswer.reload:
+    default: op
+    description: "Allows to reload the config"
+
+commands:
+  aa-reload:
+    description: "Reloads AutoAnswer config"
+    usage: /<command>
+    permission: autoanswer.reload
+    permission-message: "You don't have permission to use this command"

@@ -18,17 +18,41 @@ public class QuestionListener implements Listener {
 
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
+        if(!event.getPlayer().hasPermission("autoanswer.listen")) return;
+
         AnswerConfig conf = plugin.getAnswerConfig();
         String msg = event.getMessage();
         String answer = conf.getAnswer(msg.toLowerCase());
 
         if(answer != null) {
-            plugin.getServer().broadcastMessage("[AutoAnswer] " + event.getPlayer().getName() + " -> " + answer);
+            if(plugin.getConfig().getBoolean("broadcast-chat")) {
+                String bcmsg = plugin.getConfig().getString("messages.broadcast-format");
+                if(bcmsg == null) {
+                    logger.warning("Missing 'messages.broadcast-format' from config!");
+                    bcmsg = "AutoAnswer -> {player}: {answer}";
+                }
+
+                bcmsg = bcmsg.replaceAll("\\{player\\}", event.getPlayer().getName());
+                bcmsg = bcmsg.replaceAll("\\{answer\\}", answer);
+                plugin.getServer().broadcastMessage(bcmsg);
+            } else {
+                String userMsg = plugin.getConfig().getString("messages.answer-format");
+                if(userMsg == null) {
+                    plugin.getLogger().warning("Missing 'messages.answer-format' from config!");
+                    userMsg = "AutoAnswer: {answer}";
+                }
+
+                userMsg = userMsg.replaceAll("\\{answer\\}", answer);
+                event.getPlayer().sendMessage(userMsg);
+            }
+
         }
     }
 
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+        if(!event.getPlayer().hasPermission("autoanswer.listen")) return;
+
         AnswerConfig conf = plugin.getAnswerConfig();
         String args[] = event.getMessage().split(" ");
         String command = args[0].substring(1);
@@ -47,9 +71,28 @@ public class QuestionListener implements Listener {
         }
 
         String answer = conf.getAnswer(message.toLowerCase());
-        if(answer != null) {
-            event.getPlayer().sendMessage("[AutoAnswer] -> " + answer);
-            plugin.getServer().broadcast("{AutoAnswer} " + event.getPlayer().getName() + " -> " + answer, "autoanswer.listen");
+        if(answer == null) return;
+
+
+        String userMsg = plugin.getConfig().getString("messages.answer-format");
+        if(userMsg == null) {
+            logger.warning("Missing 'messages.answer-format' from config!");
+            userMsg = "AutoAnswer: {answer}";
+        }
+
+        userMsg = userMsg.replaceAll("\\{answer\\}", answer);
+        event.getPlayer().sendMessage(userMsg);
+
+        if(cmdConf.tellStaff) {
+            String bcmsg = plugin.getConfig().getString("messages.tell-staff-format");
+            if(bcmsg == null) {
+                logger.warning("Missing 'messages.tell-staff-format' from config!");
+                bcmsg = "AutoAnswer -> {player}: {answer}";
+            }
+
+            bcmsg = bcmsg.replaceAll("\\{player\\}", event.getPlayer().getName());
+            bcmsg = bcmsg.replaceAll("\\{answer\\}", answer);
+            plugin.getServer().broadcast(bcmsg, "autoanswer.inform");
         }
     }
 }
