@@ -39,7 +39,7 @@ public class AnswerConfig {
                 }
             }
         } else {
-            logger.info("The config does not have answers! Not even for your existance!");
+            logger.info("The config does not have answers! Not even for your existence!");
         }
 
         // Set up questions
